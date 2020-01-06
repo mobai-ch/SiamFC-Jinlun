@@ -26,8 +26,6 @@ class datasetutil:
         # Get xlabel randomly
         for i in range(8):
             current_sequence_pos = random.randint(0, self.frame_num - 1)
-            while current_sequence_pos == 5726 or current_sequence_pos == 5727:
-                current_sequence_pos = random.randint(0, self.frame_num - 1)
             sequence = self.dataset[current_sequence_pos]
             example_frame_pos = random.randint(0, len(sequence[0]) - self.frame_distance -1)
             search_frame_pos = example_frame_pos + self.frame_distance
@@ -59,22 +57,20 @@ class datasetutil:
 #     print(y.size())
 
 
-# def test_got10k():
-#     dataset = GOT10k(root_dir='../GOT10K', subset='train')
-#     print(dataset[5726])
-#     print(dataset[5727])
-#     # for i in range(len(dataset)):
-#     #     try:
-#     #         filename = dataset[i]
-#     #         for j in filename[0]:
-#     #             if os.path.exists(j) == False:
-#     #                 print("Error:{}".format(i))
-#     #                 break
-#     #     except Exception:
-#     #         print(i)
+def test_got10k():
+    dataset = GOT10k(root_dir='../GOT10K', subset='train')
+    for i in range(len(dataset)):
+        try:
+            filename = dataset[i]
+            for j in filename[0]:
+                if os.path.exists(j) == False:
+                    print("Error:{}".format(i))
+                    break
+        except Exception:
+            print(i)
 
-# if __name__ == '__main__':
-#     test_got10k()
+if __name__ == '__main__':
+    test_got10k()
 
 
 
