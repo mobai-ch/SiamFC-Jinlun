@@ -26,6 +26,8 @@ class datasetutil:
         # Get xlabel randomly
         for i in range(8):
             current_sequence_pos = random.randint(0, self.frame_num - 1)
+            while current_sequence_pos == 5726 or current_sequence_pos == 5727:
+                current_sequence_pos = random.randint(0, self.frame_num - 1)
             sequence = self.dataset[current_sequence_pos]
             example_frame_pos = random.randint(0, len(sequence[0]) - self.frame_distance -1)
             search_frame_pos = example_frame_pos + self.frame_distance
@@ -69,8 +71,8 @@ def test_got10k():
         except Exception:
             print(i)
 
-if __name__ == '__main__':
-    test_got10k()
+# if __name__ == '__main__':
+#     test_got10k()
 
 
 
