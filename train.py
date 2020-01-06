@@ -24,7 +24,7 @@ class trainer:
         self.loss_value = 0
         self.use_gpu = torch.cuda.is_available()
         if self.use_gpu:
-            self.net.cuda()
+            self.net = self.net.cuda()
 
     def train_single_step(self):
         example_region_array, search_region_array, result_label_array = self.dataset.get_next_batch()
@@ -57,7 +57,7 @@ class trainer:
         for i in range(epochs):
             for j in range(50000):
                 self.train_single_step()
-                if j % 1000 == 0:
+                if j % 10 == 0:
                     print('Epoch:{} Step:{} Average loss: {:4f}'.format(i, j, self.loss_value))
                     self.save_parameters('./model/checkpoint.pth.tar')
 
