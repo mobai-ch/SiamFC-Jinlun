@@ -56,10 +56,13 @@ class trainer:
     def multi_step_train(self, epochs):
         for i in range(epochs):
             for j in range(50000):
-                self.train_single_step()
-                if j % 10 == 0:
-                    print('Epoch:{} Step:{} Average loss: {:4f}'.format(i, j, self.loss_value))
-                    self.save_parameters('./model/checkpoint.pth.tar')
+                try:
+                    self.train_single_step()
+                    if j % 10 == 0:
+                        print('Epoch:{} Step:{} Average loss: {:4f}'.format(i, j, self.loss_value))
+                        self.save_parameters('./model/checkpoint.pth.tar')
+                except Exception(e):
+                    print('A data loss')
 
 def test_trainer():
     m_trainer = trainer(8, 4)
