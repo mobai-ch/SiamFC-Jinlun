@@ -14,6 +14,7 @@ from siamesenet import alexnetpart
 from datautil import datasetutil
 import torch
 import torch.optim as optim
+import time
 
 class trainer:
     def __init__(self, T, radius):
@@ -27,11 +28,13 @@ class trainer:
             self.net = self.net.cuda()
 
     def train_single_step(self):
+        print(time.time())
         example_region_array, search_region_array, result_label_array = self.dataset.get_next_batch()
         if self.use_gpu:
             example_region_array = example_region_array.cuda()
             search_region_array = search_region_array.cuda()
             result_label_array = result_label_array.cuda()
+        print(time.time())
         output = self.net.forward(example_region_array, search_region_array)
         loss = self.calc_loss(output, result_label_array)
         self.loss_value = loss.item()
@@ -61,7 +64,7 @@ class trainer:
                     if j % 10 == 0:
                         print('Epoch:{} Step:{} Average loss: {:4f}'.format(i, j, self.loss_value))
                         self.save_parameters('./model/checkpoint.pth.tar')
-                except Exception(e):
+                except Exception:
                     print('A data loss')
 
 def test_trainer():
