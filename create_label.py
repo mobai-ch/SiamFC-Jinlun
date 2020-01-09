@@ -85,12 +85,13 @@ def get_bouding_box(max_value_label_loc, current_loc, rate):
     cx = x + w/2
     cy = y + h/2
     x_c = cx + (i-8)*3/16*w*rate
-    y_c = cy + (j-8)*3/16*w*rate
+    y_c = cy + (j-8)*3/16*h*rate
     w = int(rate*w)
-    h = int(rate*w)
-    x_c = int(x_c-rate*w)
-    y_c = int(y_c-rate*h)
+    h = int(rate*h)
+    x_c = int(x_c-rate*w/2)
+    y_c = int(y_c-rate*h/2)
     return [x_c, y_c, w, h]
+
 
 def scaled_search_region(origin_coor, search_region, rate):
     [x, y, w, h] = origin_coor

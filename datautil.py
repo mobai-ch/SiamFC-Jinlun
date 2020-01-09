@@ -51,6 +51,10 @@ class datasetutil:
 
         return example_region_array, search_region_array, result_label_array 
 
+    def get_one_train_sequence(self, num):
+        sequence = self.dataset[num]
+        return sequence[0], sequence[1]
+
 # def util_test():
 #     my_util = datasetutil(8)
 #     x1,x2,y = my_util.get_next_batch()
