@@ -35,7 +35,7 @@ class demotracker:
         max_sum_up = -1000000
         final_rate = 1
         final_max_label_loc = [0, 0] 
-        for i in range(-2, 2):
+        for i in range(-5, 5):
             rate = pow(1.025, i)
             search_label = create_label.scaled_search_region(self.current_coor, search_frame, rate)
             search_label = torch.from_numpy(np.array([search_label]).transpose(0,3,1,2)).float()
@@ -68,31 +68,31 @@ class demotracker:
         self.current_coor = create_label.get_bouding_box(max_label_loc, self.current_coor, final_rate)
         return self.current_coor
 
-if __name__ == '__main__':
-    tracker = demotracker()
-    util = datasetutil(8, 4)
-    path_sequence, coor_sequence = util.get_one_train_sequence(800)
-    example_frame = cv2.imread(path_sequence[0])
-    tracker.select_first_region(example_frame, coor_sequence[0])
+# if __name__ == '__main__':
+#     tracker = demotracker()
+#     util = datasetutil(8, 4)
+#     path_sequence, coor_sequence = util.get_one_train_sequence(800)
+#     example_frame = cv2.imread(path_sequence[0])
+#     tracker.select_first_region(example_frame, coor_sequence[0])
 
-    videoWriter = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc('I','4','2','0'), 10, (500, 300))
+#     videoWriter = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc('I','4','2','0'), 10, (500, 300))
 
-    for i in range(1, 60):
-        search_frame = cv2.imread(path_sequence[i])
-        [xc, yc, wc, hc] = tracker.predict_future_coor(search_frame)
+#     for i in range(1, 60):
+#         search_frame = cv2.imread(path_sequence[i])
+#         [xc, yc, wc, hc] = tracker.predict_future_coor(search_frame)
 
-        [x, y, w, h] = coor_sequence[0]
-        [x1, y1, w1, h1] = coor_sequence[i]
+#         [x, y, w, h] = coor_sequence[0]
+#         [x1, y1, w1, h1] = coor_sequence[i]
 
-        # cv2.rectangle(example_frame, (int(x), int(y)), (int(x+w), int(y+h)), (255, 0, 255), thickness=5)
-        # cv2.rectangle(search_frame, (int(x1), int(y1)), (int(x1+w1), int(y1+h1)), (255, 255, 0), thickness=5)
-        cv2.rectangle(search_frame, (int(xc), int(yc)), (int(xc+wc), int(yc+hc)), (255, 0, 0), thickness=3)
+#         # cv2.rectangle(example_frame, (int(x), int(y)), (int(x+w), int(y+h)), (255, 0, 255), thickness=5)
+#         # cv2.rectangle(search_frame, (int(x1), int(y1)), (int(x1+w1), int(y1+h1)), (255, 255, 0), thickness=5)
+#         cv2.rectangle(search_frame, (int(xc), int(yc)), (int(xc+wc), int(yc+hc)), (255, 0, 0), thickness=3)
 
-        # cv2.imshow('example_frame', cv2.resize(example_frame, (500, 300)))
-        videoWriter.write(cv2.resize(search_frame, (500, 300)))
-        cv2.imshow('search_frame', cv2.resize(search_frame, (500, 300)))
+#         # cv2.imshow('example_frame', cv2.resize(example_frame, (500, 300)))
+#         videoWriter.write(cv2.resize(search_frame, (500, 300)))
+#         cv2.imshow('search_frame', cv2.resize(search_frame, (500, 300)))
 
-        cv2.waitKey(10)
+#         cv2.waitKey(10)
     
-    videoWriter.release()
+#     videoWriter.release()
 
