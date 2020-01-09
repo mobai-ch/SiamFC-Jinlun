@@ -49,7 +49,7 @@ class demotracker:
             if self.use_gpu:
                 search_label = search_label.cuda()
             result = self.net.forward(self.example_label, search_label)
-            ans = result.detach().numpy()[0,0,:,:]
+            ans = result.cpu().detach().numpy()[0,0,:,:]
             xs = 0
             xnum = 0
             ys = 0
