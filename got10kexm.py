@@ -22,9 +22,12 @@ class IdentityTracker(Tracker):
         self.tracker.select_first_region(frame, origin_coor)
 
     def update(self, image):
-        frame = cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2BGR)
-        track_result = self.tracker.predict_future_coor(frame)
-        return np.array(track_result)
+        try:
+            frame = cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2BGR)
+            track_result = self.tracker.predict_future_coor(frame)
+            return np.array(track_result)
+        except Exception:
+            pass
 
 if __name__ == '__main__':
     # setup tracker
