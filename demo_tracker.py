@@ -80,7 +80,7 @@ class demotracker:
 # if __name__ == '__main__':
 #     tracker = demotracker()
 #     util = datasetutil(8, 4)
-#     path_sequence, coor_sequence = util.get_one_train_sequence(20)
+#     path_sequence, coor_sequence = util.get_one_train_sequence(19)
 #     example_frame = cv2.imread(path_sequence[0])
 #     tracker.select_first_region(example_frame, coor_sequence[0])
 

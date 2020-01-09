@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import math
 
 # Generate xlabel from the example image
 def create_example_x_label(current_coor, example_region):
@@ -86,8 +87,8 @@ def get_bouding_box(max_value_label_loc, current_loc, rate):
     cy = y + h/2
     x_c = cx + (i-8)*3/16*w*rate
     y_c = cy + (j-8)*3/16*h*rate
-    w = int(rate*w)
-    h = int(rate*h)
+    w = int(math.ceil(rate*w))
+    h = int(math.ceil(rate*h))
     x_c = int(x_c-rate*w/2)
     y_c = int(y_c-rate*h/2)
     return [x_c, y_c, w, h]
@@ -97,8 +98,8 @@ def scaled_search_region(origin_coor, search_region, rate):
     [x, y, w, h] = origin_coor
     cx = x + w/2
     cy = y + h/2
-    w = rate*w
-    h = rate*h
+    w = math.ceil(rate*w)
+    h = math.ceil(rate*h)
     x = cx - w/2
     y = cy - h/2
     px = int(3/2*w)

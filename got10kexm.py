@@ -27,7 +27,7 @@ class IdentityTracker(Tracker):
             track_result = self.tracker.predict_future_coor(frame)
             return np.array(track_result)
         except Exception:
-            pass
+            return np.array(self.tracker.current_coor)
 
 if __name__ == '__main__':
     # setup tracker
