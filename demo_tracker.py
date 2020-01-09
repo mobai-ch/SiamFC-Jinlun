@@ -9,10 +9,15 @@ import create_label
 from datautil import datasetutil
 import numpy as np
 
+os.environ["CUDA_VISIBLE_DEVICES"]='5'
+
 class demotracker:
     def __init__(self):
         alexpart = alexnetpart()
         self.net = Siamesenet(alexpart)
+        self.use_gpu = torch.cuda.is_available()
+        if self.use_gpu:
+            self.net = self.net.cuda()
         self.load_parameters()
 
     def load_parameters(self):
@@ -23,6 +28,8 @@ class demotracker:
         example_label = create_label.create_example_x_label(origin_coor, example_frame)
         self.current_coor = origin_coor
         self.example_label = torch.from_numpy(np.array([example_label]).transpose(0,3,1,2)).float()
+        if self.use_gpu:
+            self.example_label = self.example_label.cuda()
 
     def predict_future_coor(self, search_frame):
         '''
@@ -39,6 +46,8 @@ class demotracker:
             rate = pow(1.025, i)
             search_label = create_label.scaled_search_region(self.current_coor, search_frame, rate)
             search_label = torch.from_numpy(np.array([search_label]).transpose(0,3,1,2)).float()
+            if self.use_gpu:
+                search_label = search_label.cuda()
             result = self.net.forward(self.example_label, search_label)
             ans = result.detach().numpy()[0,0,:,:]
             xs = 0
