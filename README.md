@@ -1,2 +1,2 @@
-# UHMMsiamFC
-Apply the Unsupervise learning to combine the HMM and SiamFC.
+# siamFC-Jinlun
+Work for my thesis by finetune SiamFC.
