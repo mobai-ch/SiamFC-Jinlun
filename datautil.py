@@ -15,7 +15,7 @@ T: T frame distance, or it will be out of range
 
 class datasetutil:
     def __init__(self, T, Radius):
-        self.dataset = GOT10k(root_dir='../GOT10K', subset='val')
+        self.dataset = GOT10k(root_dir='../GOT-10k', subset='val')
         self.frame_distance = T
         self.frame_num = len(self.dataset)
         self.raduis = Radius
